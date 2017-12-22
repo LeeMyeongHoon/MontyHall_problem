@@ -23,19 +23,19 @@ using namespace std;
 
 int main(void)
 {
-	unsigned int trialTotal;					// 입력되는 전체 수행 횟수
+	int trialTotal;					// 입력되는 전체 수행 횟수
 	bool switchOption;							// 입력되는 선택 옵션
 
 	bool randItem;								// 상품배치를 랜덤하게 하는데 필요한 변수 
-	short locateItemCount[ITEM_TOTAL] = { 0 };	// 각 상품별 배치될 (자동차,염소)의 갯수 목록
+	int locateItemCount[ITEM_TOTAL] = { 0 };	// 각 상품별 배치될 (자동차,염소)의 갯수 목록
 	bool itemBehindDoor[DOOR_TOTAL] = { 0 };	// 각 문에 배치된 상품 목록
 
-	short firstChoice;							// 참가자의 첫 선택
-	short openGoatDoor;							// 참가자의 첫 선택 후, 사회자가 열어주어 염소가 있는 문  
-	short randDoor;								// 사회자가 문을 열기 위해 필요한 변수
-	short finalChoice;							// 참가자의 최종 선택
+	int firstChoice;							// 참가자의 첫 선택
+	int openGoatDoor;							// 참가자의 첫 선택 후, 사회자가 열어주어 염소가 있는 문  
+	int randDoor;								// 사회자가 문을 열기 위해 필요한 변수
+	int finalChoice;							// 참가자의 최종 선택
 	bool IsSuccess;								// 수행할 때마다 당첨 여부가 저장되는 변수(true=당첨,false=꽝)
-	unsigned int successCount = 0;				// 당첨 횟수를 누적
+	int successCount = 0;						// 당첨 횟수를 누적
 
 	// 출력에 사용되는 문자열
 	const char* itemName[ITEM_TOTAL] = { "염소" , "자동차" };
@@ -51,13 +51,13 @@ int main(void)
 	cout << "옵션을 선택하세요 : ";
 	cin >> switchOption;
 	cout << '\n';
-	for (size_t trialCount = 1; trialCount <= trialTotal; trialCount++)
+	for (int trialCount = 1; trialCount <= trialTotal; trialCount++)
 	{
 		// 자동차 1대와 염소 2마리를 랜덤으로 배치합니다.
 		locateItemCount[GOAT] = 2;
 		locateItemCount[CAR] = 1;
 
-		for (size_t doorIndex = 0; doorIndex < DOOR_TOTAL; doorIndex++)
+		for (int doorIndex = 0; doorIndex < DOOR_TOTAL; doorIndex++)
 		{
 			for (;;)
 			{
@@ -76,7 +76,7 @@ int main(void)
 		firstChoice = rand() % DOOR_TOTAL;
 
 		// 사회자가 염소가 있는 다른 문을 열어줍니다.
-		while (1)
+		for (;;)
 		{
 			randDoor = rand() % DOOR_TOTAL;
 			if ((randDoor != firstChoice) && (itemBehindDoor[randDoor] == GOAT))
@@ -89,7 +89,7 @@ int main(void)
 		// Option[1] : 선택을 변경합니다.
 		if (switchOption)
 		{
-			for (size_t doorIndex = 0; doorIndex < DOOR_TOTAL; doorIndex++)
+			for (int doorIndex = 0; doorIndex < DOOR_TOTAL; doorIndex++)
 			{
 				if ((doorIndex != firstChoice) && (doorIndex != openGoatDoor))
 				{
